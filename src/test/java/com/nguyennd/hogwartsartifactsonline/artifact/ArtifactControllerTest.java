@@ -200,7 +200,7 @@ class ArtifactControllerTest {
         Artifact updatedArtifact = new Artifact();
         updatedArtifact.setId("1250808601744904197");
         updatedArtifact.setName("Remembrall");
-        updatedArtifact.setDescription("Remembrall Description");
+        updatedArtifact.setDescription("A Remembrall was a magical large marble-sized glass ball that contained smoke which turned red when its owner or user had forgotten something. It turned clear once whatever was forgotten was remembered.");
         updatedArtifact.setImageUrl("ImageUrl");
 
         given(this.artifactService.update(eq("1250808601744904197"),Mockito.any(Artifact.class))).willReturn(updatedArtifact);

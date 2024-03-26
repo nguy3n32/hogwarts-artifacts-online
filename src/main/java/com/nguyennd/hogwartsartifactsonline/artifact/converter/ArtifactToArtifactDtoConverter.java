@@ -2,8 +2,7 @@ package com.nguyennd.hogwartsartifactsonline.artifact.converter;
 
 import com.nguyennd.hogwartsartifactsonline.artifact.Artifact;
 import com.nguyennd.hogwartsartifactsonline.artifact.dto.ArtifactDto;
-import com.nguyennd.hogwartsartifactsonline.wizard.WizardToWizardDtoConverter;
-import com.nguyennd.hogwartsartifactsonline.wizard.dto.WizardDto;
+import com.nguyennd.hogwartsartifactsonline.wizard.converter.WizardToWizardDtoConverter;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

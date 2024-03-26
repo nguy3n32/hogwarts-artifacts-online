@@ -18,9 +18,9 @@ import java.util.Map;
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
-    @ExceptionHandler(ArtifactNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    Result handleArtifactNotFoundException(ArtifactNotFoundException exc) {
+    Result handleArtifactNotFoundException(NotFoundException exc) {
         return new Result(false, StatusCode.NOT_FOUND, exc.getMessage());
     }
 
