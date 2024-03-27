@@ -2,6 +2,8 @@ package com.nguyennd.hogwartsartifactsonline.system;
 
 import com.nguyennd.hogwartsartifactsonline.artifact.Artifact;
 import com.nguyennd.hogwartsartifactsonline.artifact.ArtifactRepository;
+import com.nguyennd.hogwartsartifactsonline.hogwartsuser.HogWartsUser;
+import com.nguyennd.hogwartsartifactsonline.hogwartsuser.UserRepository;
 import com.nguyennd.hogwartsartifactsonline.wizard.Wizard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,10 +17,13 @@ public class DBDataInitializer implements CommandLineRunner {
 
     private final WizardRepository wizardRepository;
 
+    private final UserRepository userRepository;
+
     @Autowired
-    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository) {
+    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserRepository userRepository) {
         this.artifactRepository = artifactRepository;
         this.wizardRepository = wizardRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -79,10 +84,35 @@ public class DBDataInitializer implements CommandLineRunner {
         w3.setName("Neville Longbottom");
         w3.addArtifact(a5);
 
+        HogWartsUser u1 = new HogWartsUser();
+        u1.setId(1);
+        u1.setPassword("bac@123");
+        u1.setUsername("john");
+        u1.setEnable(true);
+        u1.setRoles("admin user");
+
+        HogWartsUser u2 = new HogWartsUser();
+        u2.setId(2);
+        u2.setPassword("bac@123");
+        u2.setUsername("eric");
+        u2.setEnable(true);
+        u2.setRoles("user");
+
+        HogWartsUser u3 = new HogWartsUser();
+        u3.setId(3);
+        u3.setPassword("bac@123");
+        u3.setUsername("tom");
+        u3.setEnable(false);
+        u3.setRoles("user");
+
         wizardRepository.save(w1);
         wizardRepository.save(w2);
         wizardRepository.save(w3);
 
         artifactRepository.save(a6);
+
+        userRepository.save(u1);
+        userRepository.save(u2);
+        userRepository.save(u3);
     }
 }
