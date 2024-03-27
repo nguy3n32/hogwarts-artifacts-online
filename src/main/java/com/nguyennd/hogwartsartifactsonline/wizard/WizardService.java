@@ -1,5 +1,6 @@
 package com.nguyennd.hogwartsartifactsonline.wizard;
 
+import com.nguyennd.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ public class WizardService {
 
     public Wizard findById(int wizardId) {
         return wizardRepository.findById(wizardId).orElseThrow(() ->
-                new WizardNotFoundException(wizardId)
+                new ObjectNotFoundException(Wizard.class.getSimpleName(),wizardId)
         );
     }
 
@@ -35,12 +36,12 @@ public class WizardService {
                     oldWizard.setName(update.getName());
                     return wizardRepository.save(oldWizard);
                 }
-        ).orElseThrow(() -> new WizardNotFoundException(wizardId));
+        ).orElseThrow(() -> new ObjectNotFoundException(Wizard.class.getSimpleName(),wizardId));
     }
 
     public void delete(int wizardId) {
         Wizard wizard = this.wizardRepository.findById(wizardId)
-                .orElseThrow(() -> new WizardNotFoundException(wizardId)
+                .orElseThrow(() -> new ObjectNotFoundException(Wizard.class.getSimpleName(),wizardId)
                 );
         wizard.removeArtifacts();
         this.wizardRepository.deleteById(wizardId);

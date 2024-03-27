@@ -1,6 +1,7 @@
 package com.nguyennd.hogwartsartifactsonline.wizard;
 
 import com.nguyennd.hogwartsartifactsonline.artifact.Artifact;
+import com.nguyennd.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,8 +96,8 @@ class WizardServiceTest {
 
         // Then
         assertThat(thrown)
-                .isInstanceOf(WizardNotFoundException.class)
-                .hasMessage("Could not find wizard with Id - 2 :(");
+                .isInstanceOf(ObjectNotFoundException.class)
+                .hasMessage("Could not find Wizard with Id - 2 :(");
         verify(wizardRepository, times(1)).findById(2);
 
     }
@@ -168,7 +168,7 @@ class WizardServiceTest {
         given(wizardRepository.findById(2)).willReturn(Optional.empty());
 
         // When
-        assertThrows(WizardNotFoundException.class, () ->{
+        assertThrows(ObjectNotFoundException.class, () ->{
             wizardService.update(2, update);
         });
 
@@ -199,7 +199,7 @@ class WizardServiceTest {
         given(wizardRepository.findById(2)).willReturn(Optional.empty());
 
         // When
-        assertThrows(WizardNotFoundException.class, () -> {
+        assertThrows(ObjectNotFoundException.class, () -> {
             wizardService.delete(2);
         });
 
