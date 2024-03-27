@@ -1,6 +1,7 @@
 package com.nguyennd.hogwartsartifactsonline.artifact;
 
 import com.nguyennd.hogwartsartifactsonline.artifact.utils.IdWorker;
+import com.nguyennd.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,7 @@ public class ArtifactService {
 
     public Artifact findById(String artifactId) {
         return artifactRepository.findById(artifactId).orElseThrow(() ->
-                new ArtifactNotFoundException(artifactId));
+                new ObjectNotFoundException(Artifact.class.getSimpleName(),artifactId));
     }
 
     public List<Artifact> findAll() {
@@ -43,13 +44,13 @@ public class ArtifactService {
                     oldArtifact.setImageUrl(update.getImageUrl());
                     return this.artifactRepository.save(oldArtifact);
                 })
-                .orElseThrow(() -> new ArtifactNotFoundException(artifactId));
+                .orElseThrow(() -> new ObjectNotFoundException(Artifact.class.getSimpleName(),artifactId));
     }
 
     public void delete(String artifactId) {
         this.artifactRepository.findById(artifactId)
                 .orElseThrow(() ->
-                        new ArtifactNotFoundException(artifactId)
+                        new ObjectNotFoundException(Artifact.class.getSimpleName(),artifactId)
                 );
         this.artifactRepository.deleteById(artifactId);
     }

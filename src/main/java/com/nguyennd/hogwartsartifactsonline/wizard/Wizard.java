@@ -1,10 +1,7 @@
 package com.nguyennd.hogwartsartifactsonline.wizard;
 
 import com.nguyennd.hogwartsartifactsonline.artifact.Artifact;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,11 +11,12 @@ import java.util.List;
 public class Wizard implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},mappedBy = "owner")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "owner")
     private List<Artifact> artifacts = new ArrayList<>();
 
     public Wizard() {
@@ -55,5 +53,13 @@ public class Wizard implements Serializable {
 
     public Integer getNumberOfArtifacts() {
         return this.artifacts.size();
+    }
+
+    public void removeArtifacts() {
+        this.artifacts.forEach(
+                artifact ->
+                        artifact.setOwner(null)
+        );
+        this.artifacts = new ArrayList<>();
     }
 }
